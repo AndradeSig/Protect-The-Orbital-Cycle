@@ -15,16 +15,16 @@ class Planet : public Handler
 
         float angle;
 
-        Planet(std::string type);
+        Planet();
         void start(sf::RenderWindow &window);
         void tick(float delta_time, sf::RenderWindow &window);
         void render(sf::RenderWindow &widnow);
 };
 
 
-Planet::Planet(std::string type)
+Planet::Planet()
 {
-    this->type  = type;
+    this->type = PLANET;
 }
 
 void Planet::start(sf::RenderWindow &window)

@@ -19,8 +19,8 @@ Planet      *planet;
 
 void whenStart(sf::RenderWindow &window)
 {
-    sun             = new Sun("SUN");
-    planet          = new Planet("PLANET");
+    sun             = new Sun();
+    planet          = new Planet();
 
     /** PUSH HANDLER OBJECT **/
     handler.push_back(sun);
@@ -63,11 +63,10 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
     uint16_t random_number  = std::rand() % 100;
 
     if(random_number < 3){
-        Asteroid *asteroid  = new Asteroid("ASTEROID");
+        Asteroid *asteroid  = new Asteroid();
         handler.push_back(asteroid);
     }
 
-    system("clear");
 
     /** COLLISION BETWEEN ASTEROIDS, PLANET AND SUN **/
     for (uint16_t x = 0; x < handler.size(); x++){

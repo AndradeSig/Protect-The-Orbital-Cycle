@@ -18,15 +18,15 @@ class Asteroid : public Handler
     
         float angle     = 0.0f;
 
-        Asteroid(std::string type);
+        Asteroid();
         void tick(float delta_time, sf::RenderWindow &window);
         void render(sf::RenderWindow &widnow);
 };
 
-Asteroid::Asteroid(std::string type)
+Asteroid::Asteroid()
 {
 
-    this->type  = type;
+    this->type = ASTEROID;
 
     /** RANDOMIZE **/
     std::srand(time(NULL));

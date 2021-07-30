@@ -4,9 +4,14 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+
 class Handler
 {
     public:
+        enum Types {HANDLER, SUN, PLANET, ASTEROID};
+
+        Types type = HANDLER;
+
         double posX;
         double posY;
         double last_posX;
@@ -20,8 +25,6 @@ class Handler
         float velocity;
         float force;
         float mass;
-
-        std::string type;
 
         virtual void  start(sf::RenderWindow &window);
         virtual void  tick(float delta_time, sf::RenderWindow &window);
