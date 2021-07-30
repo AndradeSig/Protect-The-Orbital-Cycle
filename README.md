@@ -1,5 +1,3 @@
-# Assembly
-ASM
 ####
 🪐 Game Jaaj 6 - Orbit Game Cicle 🪐
 -------
