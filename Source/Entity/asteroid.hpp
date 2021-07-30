@@ -18,13 +18,16 @@ class Asteroid : public Handler
     
         float angle     = 0.0f;
 
-        Asteroid();
+        Asteroid(std::string type);
         void tick(float delta_time, sf::RenderWindow &window);
         void render(sf::RenderWindow &widnow);
 };
 
-Asteroid::Asteroid()
+Asteroid::Asteroid(std::string type)
 {
+
+    this->type  = type;
+
     /** RANDOMIZE **/
     std::srand(time(NULL));
 
@@ -44,7 +47,7 @@ Asteroid::Asteroid()
     //system("clear");
     //std::cout << random_number_to_spawn << "\n";
 
-    this->radius    = 32.0f;
+    this->radius    = 22.0f;
     this->velocity  = 14.0f;
 
     if(!asteroid_texture.loadFromFile("Resources/asteroide.png"))

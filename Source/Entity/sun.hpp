@@ -12,10 +12,17 @@ class Sun : public Handler
         sf::CircleShape sun_shape;
         sf::Texture     sun_texture;
 
+        Sun(std::string type);
         void start(sf::RenderWindow &window);
         void tick(float delta_time, sf::RenderWindow &window);
         void render(sf::RenderWindow &widnow);
 };
+
+
+Sun::Sun(std::string type)
+{
+    this->type  = type;
+}
 
 void Sun::start(sf::RenderWindow &window)
 {

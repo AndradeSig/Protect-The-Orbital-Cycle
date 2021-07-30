@@ -19,8 +19,8 @@ Planet      *planet;
 
 void whenStart(sf::RenderWindow &window)
 {
-    sun             = new Sun();
-    planet          = new Planet();
+    sun             = new Sun("SUN");
+    planet          = new Planet("PLANET");
 
     /** PUSH HANDLER OBJECT **/
     handler.push_back(sun);
@@ -47,7 +47,7 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
 {
     sun->mass     = 10.0f;
     planet->mass  = 10.0f;
-    distance = 250;
+    distance = 200;
 
     //velocidade orbital
     planet->velocity = std::sqrt((G * sun->mass * planet->mass) / distance);
@@ -55,7 +55,7 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
     planet->posX = sun->getPosX() + (std::cos(ang_orbita * PI/180) * distance);
     planet->posY = sun->getPosY() + (std::sin(ang_orbita * PI/180) * distance);
 
-    ang_orbita += 10 * delta_time;
+    ang_orbita += 4 * delta_time;
 
     /** SPAWN ASTEROIDS **/
     std::srand(1000000000 * delta_time);
@@ -63,7 +63,7 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
     uint16_t random_number  = std::rand() % 100;
 
     if(random_number < 3){
-        Asteroid *asteroid  = new Asteroid();
+        Asteroid *asteroid  = new Asteroid("ASTEROID");
         handler.push_back(asteroid);
     }
 
@@ -71,8 +71,9 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
 
     /** COLLISION BETWEEN ASTEROIDS, PLANET AND SUN **/
     for (uint16_t x = 0; x < handler.size(); x++){
-        if (handler[x]->isCollidingWith({*sun, *planet}))
+        if (handler[x]->isCollidingWith({*sun, *planet})){
             handler.erase(handler.begin() + x);
+        }
     }
 
 

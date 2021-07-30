@@ -21,6 +21,8 @@ class Handler
         float force;
         float mass;
 
+        std::string type;
+
         virtual void  start(sf::RenderWindow &window);
         virtual void  tick(float delta_time, sf::RenderWindow &window);
         virtual void  render(sf::RenderWindow &widnow);
@@ -68,7 +70,6 @@ bool Handler::isCollidingWith(std::vector<Handler> objects){
                                     std::pow(getPosY() - object.getPosY(), 2));
 
         if (distance < (object.getRadius() + getRadius()) && distance != 0){
-            std::cout << "COLIDINDO!!!\n";
             return true;
         }
 
