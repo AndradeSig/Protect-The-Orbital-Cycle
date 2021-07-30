@@ -43,6 +43,15 @@ void whenStart(sf::RenderWindow &window)
 float  distance;
 float  ang_orbita;
 
+
+/** EVERYTHING THAT HAPPENS IN COLLISIONS WILL BE IN THIS METHOD **/
+void cause_collision(uint16_t x)
+{
+    handler[x]->isDestroyed     = true;
+    handler.erase(handler.begin() + x);
+}
+
+
 void whenUpdate(float delta_time, sf::RenderWindow &window)
 {
     sun->mass     = 10.0f;
@@ -71,7 +80,7 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
     /** COLLISION BETWEEN ASTEROIDS, PLANET AND SUN **/
     for (uint16_t x = 0; x < handler.size(); x++){
         if (handler[x]->isCollidingWith({*sun, *planet})){
-            handler.erase(handler.begin() + x);
+            cause_collision(x);       
         }
     }
 

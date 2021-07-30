@@ -55,9 +55,14 @@ int main()
         }
         
         /** DELTA TIME **/
+
         float current_time  = game_clock.restart().asSeconds();
         delta_time          = current_time - last_time + 0.1;
+        float fps           = (1.0f / current_time) + 1.0f;
         last_time           = current_time;
+
+        system("clear");
+        std::cout << "FPS........: " << fps << "\n";
 
         tick(delta_time, window);
         render(window);

@@ -97,7 +97,7 @@ void Asteroid::tick(float delta_time, sf::RenderWindow &window)
     else if(this->posX < -40)
         asteroid_shape.setPosition(sf::Vector2f(this->posX + window_x, this->posY));
     
-    if(this->isDestroyed){
+    if(!this->isDestroyed){
         frames_anim++;
         if(frames_anim >= anim_speed){
             frames_anim = 0;
@@ -116,9 +116,9 @@ void Asteroid::tick(float delta_time, sf::RenderWindow &window)
 void Asteroid::render(sf::RenderWindow &window)
 {
     if(!this->isDestroyed){
-        asteroid_shape.setTexture(&asteroid_texture);
-    }else{
         asteroid_shape.setTexture(&asteroid_texture_destroying[current_anim]);
+    }else{
+        asteroid_shape.setTexture(&asteroid_texture);
     }
 
     window.draw(asteroid_shape);
