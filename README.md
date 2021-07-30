@@ -6,6 +6,7 @@ Este jogo foi feito para a Game Jaaj 6 (Game Jam organizada pelo Amdre Young).
 O jogo está em fase de Desenvolvimento, e está sendo produzido por : Andrade e Gustavo
 <br/>
 ```
+Plataformas......: Linux (em breve Windows)
 Compilador.......: GCC
 Linguagens.......: C++
 API..............: SFML
