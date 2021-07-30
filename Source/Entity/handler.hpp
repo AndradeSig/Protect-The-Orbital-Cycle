@@ -26,6 +26,8 @@ class Handler
         float force;
         float mass;
 
+        bool  isDestroyed   = false;
+
         virtual void  start(sf::RenderWindow &window);
         virtual void  tick(float delta_time, sf::RenderWindow &window);
         virtual void  render(sf::RenderWindow &widnow);
