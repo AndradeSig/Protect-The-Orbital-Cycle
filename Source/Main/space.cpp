@@ -57,7 +57,7 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
 
     ang_orbita += 10 * delta_time;
 
-    /** SPAWN ASTEROIDES **/
+    /** SPAWN ASTEROIDS **/
     std::srand(1000000000 * delta_time);
 
     uint16_t random_number  = std::rand() % 100;
@@ -68,6 +68,8 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
     }
 
     system("clear");
+
+    /** COLLISION BETWEEN ASTEROIDS, PLANET AND SUN **/
     for (uint16_t x = 0; x < handler.size(); x++){
         if (handler[x]->isCollidingWith({*sun, *planet}))
             handler.erase(handler.begin() + x);
