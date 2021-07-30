@@ -16,10 +16,6 @@ Planet      *planet;
 #define PI 3.14159265359f
 #define G  500000.0f
 
-float  distance;
-double distance_X;
-double distance_Y;
-float  ang_orbita;
 
 void whenStart(sf::RenderWindow &window)
 {
@@ -38,16 +34,20 @@ void whenStart(sf::RenderWindow &window)
         current_handler->start(window);
     }
 
-    distance_X  = sun->getPosX() - planet->getPosX();
-    distance_Y  = sun->getPosY() - planet->getPosY();
-    distance    = std::sqrt( std::pow(distance_X, 2) + std::pow(distance_Y, 2));
-    ang_orbita  = std::atan(distance_X / distance_Y) * 180/PI;
+    //distance_X  = sun->getPosX() - planet->getPosX();
+    //distance_Y  = sun->getPosY() - planet->getPosY();
+    //distance    = std::sqrt( std::pow(distance_X, 2) + std::pow(distance_Y, 2));
+    //ang_orbita  = std::atan(distance_X / distance_Y) * 180/PI;
 }
+
+float  distance;
+float  ang_orbita;
 
 void whenUpdate(float delta_time, sf::RenderWindow &window)
 {
     sun->mass     = 10.0f;
     planet->mass  = 10.0f;
+    distance = 250;
 
     //velocidade orbital
     planet->velocity = std::sqrt((G * sun->mass * planet->mass) / distance);
@@ -68,8 +68,6 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
     }
 
     system("clear");
-
-    /** COLLISION BETWEEN PLANETS, SUN AND ASTEROIDs **/
     for (uint16_t x = 0; x < handler.size(); x++){
         if (handler[x]->isCollidingWith({*sun, *planet}))
             handler.erase(handler.begin() + x);
