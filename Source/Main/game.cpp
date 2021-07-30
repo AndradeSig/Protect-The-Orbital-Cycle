@@ -15,7 +15,7 @@ void tick(float delta_time, sf::RenderWindow &window)
     whenUpdate(delta_time, window);
 }
 
-void render(sf::RenderWindow &window)
+void render(sf::RenderWindow &window, float delta_time)
 {
     window.clear(sf::Color::Black);
 
@@ -24,7 +24,7 @@ void render(sf::RenderWindow &window)
     space_background.setTexture(&space_texture);
 
     window.draw(space_background);
-    whenRender(window);
+    whenRender(window, delta_time);
     window.display();
 }
 
@@ -55,17 +55,12 @@ int main()
         }
         
         /** DELTA TIME **/
-
         float current_time  = game_clock.restart().asSeconds();
-        delta_time          = current_time - last_time + 0.1;
-        float fps           = (1.0f / current_time) + 1.0f;
+        delta_time          = (current_time - last_time + 0.1) / 10;
         last_time           = current_time;
 
-        system("clear");
-        std::cout << "FPS........: " << fps << "\n";
-
         tick(delta_time, window);
-        render(window);
+        render(window, delta_time);
     }
 
     return 0;
