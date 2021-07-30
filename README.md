@@ -1,4 +1,4 @@
-####
+##
 🪐 Game Jaaj 6 - Orbit Game Cicle 🪐
 -------
 Este jogo foi feito para a Game Jaaj 6 (Game Jam organizada pelo Amdre Young).
@@ -14,3 +14,22 @@ Editor de Códigos: Visual Studio Code
 ```
 ####
 Github do Gustavo: https://github.com/GustavoGLD
+
+### Abrindo o Jogo ###
+O executável `JaajGame` está na pasta `Game/` (somente linux)
+
+### Compilando (Linux) ###
+
+```shell
+#debian-based
+sudo apt install build-essential
+sudo apt-get install libsfml-dev
+make
+
+
+#arch-based
+sudo pacman -S gcc g++
+yay -S sfml
+make
+
+```
