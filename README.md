@@ -33,3 +33,9 @@ yay -S sfml
 make
 
 ```
+
+### Créditos ###
+
+https://github.com/effolkronium/random
+
+![](https://user-images.githubusercontent.com/72351688/127724229-54831d62-5042-466f-867f-c6721d8c862d.png)
