@@ -2,12 +2,16 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
-#include <time.h>
 #include <SFML/Graphics.hpp>
 #include "../Entity/handler.hpp"
 #include "../Entity/sun.hpp"
 #include "../Entity/planet.hpp"
 #include "../Entity/asteroid.hpp"
+
+/** External API **/
+#include "../API/random.hpp"                 // https://github.com/effolkronium/random
+using Random = effolkronium::random_static; /** External API to use Random **/
+
 
 /** VARIABLES || OBJECTS **/
 std::vector<Handler *> handler;
@@ -117,15 +121,12 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
     planet->posX = sun->getPosX() + (std::cos(ang_orbita * PI / 180) * distance);
     planet->posY = sun->getPosY() + (std::sin(ang_orbita * PI / 180) * distance);
 
-    //80° por segundo
-    ang_orbita += 80 * delta_time;
+    // 30° por segundo
+    ang_orbita += 30 * delta_time;
 
     /** SPAWN ASTEROIDS **/
-    std::srand(1000000000 * delta_time);
-
-    uint16_t random_number = std::rand() % 100;
-
-    if (random_number < 3)
+    double random_number = Random::get(0, 100); /** Get random numbers between 0 and 100 **/
+    if (random_number < 0.01)
     {
         Asteroid *asteroid = new Asteroid();
         handler.push_back(asteroid);
