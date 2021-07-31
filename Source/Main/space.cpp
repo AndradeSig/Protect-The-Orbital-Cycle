@@ -39,7 +39,7 @@ public:
     float time_interframes = 0.2f;
     float time;
 
-    void addFrame(std::pair<float, float> new_position)
+    void addAnimHere(std::pair<float, float> new_position)
     {
         animations.push_back((Animation){new_position.first, new_position.second, time});
     }
@@ -137,7 +137,8 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
     {
         if (handler[x]->isCollidingWith({*sun, *planet}))
         {
-            asteroid_animations.addFrame({handler[x]->getPosX(), handler[x]->getPosY()});
+            asteroid_animations.addAnimHere({handler[x]->getPosX() - handler[x]->getRadius(), 
+                                             handler[x]->getPosY() - handler[x]->getRadius()});
             handler.erase(handler.begin() + x);
         }
     }

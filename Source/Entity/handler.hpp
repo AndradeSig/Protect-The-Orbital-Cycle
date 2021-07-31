@@ -52,12 +52,12 @@ void Handler::render(sf::RenderWindow &window)
 
 int Handler::getPosX()
 {
-    return (int)posX + (radius / 2);
+    return (int)posX + radius;// - (radius / 2);
 }
 
 int Handler::getPosY()
 {
-    return (int)posY + (radius / 2);
+    return (int)posY + radius;// - (radius / 2);
 }
 
 float Handler::getRadius()
