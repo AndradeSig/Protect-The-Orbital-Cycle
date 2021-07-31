@@ -15,11 +15,15 @@ Editor de Códigos: Visual Studio Code
 ####
 Github do Gustavo: https://github.com/GustavoGLD
 
+-----------
+
 ### Abrindo o Jogo ###
+
 O executável `JaajGame` está na pasta `Game/` (somente linux)
 
-### Compilando (Linux) ###
+-----------
 
+### Compilando (Linux) ###
 ```shell
 #debian-based
 sudo apt install build-essential
@@ -33,9 +37,8 @@ yay -S sfml
 make
 
 ```
+-----------
 
 ### Créditos ###
-
-https://github.com/effolkronium/random
-
-![](https://user-images.githubusercontent.com/72351688/127724229-54831d62-5042-466f-867f-c6721d8c862d.png)
+https://github.com/effolkronium/random (Random for modern C++ with convenient API)
+https://github.com/SFML/SFML           (Simple and Fast Multimedia Library)
