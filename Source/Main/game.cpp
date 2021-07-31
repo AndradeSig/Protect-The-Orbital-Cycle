@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "space.cpp"
 
 #define GAME_TITLE     "Unknow Game Name"
@@ -37,6 +38,12 @@ int main()
     sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), GAME_TITLE, sf::Style::Close | sf::Style::Titlebar);
     window.setPosition(sf::Vector2i(window.getPosition().x / 2, window.getPosition().y / 2));
     window.setFramerateLimit(FRAMERATE_GAME);
+
+    sf::Music music;
+    music.openFromFile("Resources/AMagicalJourneyThroughSpace_LeonellCassio.ogg");
+    music.setVolume(50.f);
+    music.setLoop(true);
+    music.play();
 
     sf::Clock game_clock;
     float delta_time        = 0.0f;
