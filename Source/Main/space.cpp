@@ -78,7 +78,7 @@ public:
 
 };
 
-class AsteroidSound{
+class SoundEffect{
     bool _shouldPlay;
 public:
     sf::SoundBuffer soundbuffer;
@@ -108,7 +108,7 @@ public:
     }
 };
 
-AsteroidSound asteroidSound;
+SoundEffect asteroidSound;
 Animator asteroid_animations;
 
 void whenStart(sf::RenderWindow &window)
