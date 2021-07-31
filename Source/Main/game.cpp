@@ -15,7 +15,7 @@ void tick(float delta_time, sf::RenderWindow &window)
     whenUpdate(delta_time, window);
 }
 
-void render(sf::RenderWindow &window, float delta_time)
+void render(sf::RenderWindow &window, float delta_time, float fps)
 {
     window.clear(sf::Color::Black);
 
@@ -25,6 +25,10 @@ void render(sf::RenderWindow &window, float delta_time)
 
     window.draw(space_background);
     whenRender(window, delta_time);
+
+    /** SHOW FPS **/
+    SHOW_GUI_FPS("FPS: " + std::to_string(fps), window);
+
     window.display();
 }
 
@@ -60,10 +64,8 @@ int main()
         float frames_per_sec    = (1.0f / current_time) + 1.0f;
         last_time               = current_time;
 
-        std::cout << frames_per_sec << "\n";
-
         tick(delta_time, window);
-        render(window, delta_time);
+        render(window, delta_time, frames_per_sec);
     }
 
     return 0;

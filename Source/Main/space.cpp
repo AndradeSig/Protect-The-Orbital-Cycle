@@ -8,6 +8,9 @@
 #include "../Entity/planet.hpp"
 #include "../Entity/asteroid.hpp"
 
+/** GUI **/
+#include "UserInterface.cpp"
+
 /** External API **/
 #include "../API/random.hpp"                 // https://github.com/effolkronium/random
 using Random = effolkronium::random_static; /** External API to use Random **/
@@ -17,6 +20,8 @@ using Random = effolkronium::random_static; /** External API to use Random **/
 std::vector<Handler *> handler;
 Sun *sun;
 Planet *planet;
+
+int POINTS  = 0;
 
 #define PI 3.14159265359f
 #define G 500000.0f
@@ -77,6 +82,9 @@ Animator asteroid_animations;
 
 void whenStart(sf::RenderWindow &window)
 {
+
+    LOAD_GUI(); /** TO LOAD GUI **/
+
     sun = new Sun();
     planet = new Planet();
 
@@ -150,7 +158,7 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
     for(uint16_t x = 0; x < handler.size(); x++)
     {
         if(mousePosition.x > handler[x]->getPosX() - handler[x]->getRadius() && mousePosition.x < handler[x]->getPosX() + handler[x]->getRadius()
-        || mousePosition.y > handler[x]->getPosY() + handler[x]->getRadius() && mousePosition.y < handler[x]->getPosY() - handler[x]->getRadius())
+        || mousePosition.y > handler[x]->getPosY() + handler[x]->getRadius() && mousePosition.y < handler[x]->getPosY() - handler[x]->getRadius()/2)
         {
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
@@ -158,7 +166,8 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
                 {
                     asteroid_animations.addAnimHere({handler[x]->getPosX() - handler[x]->getRadius(), 
                                                 handler[x]->getPosY() - handler[x]->getRadius()});
-                    handler.erase(handler.begin() + x);   
+                    handler.erase(handler.begin() + x);
+                    POINTS++;   /** + points **/   
                 }
             }
         }
@@ -177,4 +186,6 @@ void whenRender(sf::RenderWindow &window, float delta_time)
         current_handler->render(window);
     }
     asteroid_animations.renderAnims(&window, delta_time);
+
+    SHOW_GUI_POINTS("POINTS:" + std::to_string(POINTS), window);
 }
