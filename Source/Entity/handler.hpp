@@ -8,9 +8,9 @@
 class Handler
 {
     public:
-        enum Types {HANDLER, SUN, PLANET, ASTEROID};
+        enum Types {NONE, HANDLER, SUN, PLANET, ASTEROID};
 
-        Types type = HANDLER;
+        Handler::Types type = HANDLER;
 
         double posX;
         double posY;
@@ -32,7 +32,7 @@ class Handler
         virtual int   getPosX();
         virtual int   getPosY();
         virtual float getRadius();
-        virtual bool  isCollidingWith(std::vector<Handler> objects);
+        virtual Types  isCollidingWith(std::vector<Handler> objects);
 };
 
 void Handler::start(sf::RenderWindow &window)
@@ -65,7 +65,7 @@ float Handler::getRadius()
     return radius;
 }
 
-bool Handler::isCollidingWith(std::vector<Handler> objects){
+Handler::Types Handler::isCollidingWith(std::vector<Handler> objects){
 
     for (auto object : objects){
 
@@ -73,11 +73,11 @@ bool Handler::isCollidingWith(std::vector<Handler> objects){
                                     std::pow(getPosY() - object.getPosY(), 2));
 
         if (distance < (object.getRadius() + getRadius()) && distance != 0){
-            return true;
+            return object.type;
         }
 
     }
-    return false;
+    return NONE;
 }
 
 #endif
