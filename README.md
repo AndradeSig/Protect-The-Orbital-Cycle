@@ -19,7 +19,7 @@ Github do Gustavo: https://github.com/GustavoGLD
 
 ### Abrindo o Jogo ###
 
-O executável `JaajGame` está na pasta principal do Projeto. Para abrir, basta clicar 2 vezes no executável, ou executar o comando `./JaajGame`.
+O executável `JaajGame` está na pasta principal do Projeto. Para abrir, basta clicar 2 vezes no executável, ou executar o comando `./JaajGame` (Execut
 
 -----------
 
