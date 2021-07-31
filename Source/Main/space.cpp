@@ -139,7 +139,28 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
         {
             asteroid_animations.addAnimHere({handler[x]->getPosX() - handler[x]->getRadius(), 
                                              handler[x]->getPosY() - handler[x]->getRadius()});
-            handler.erase(handler.begin() + x);
+            handler.erase(handler.begin() + x);   
+        }
+    }
+
+
+    /** DETECT MOUSE COLLISION **/
+    sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+
+    for(uint16_t x = 0; x < handler.size(); x++)
+    {
+        if(mousePosition.x > handler[x]->getPosX() - handler[x]->getRadius() && mousePosition.x < handler[x]->getPosX() + handler[x]->getRadius()
+        || mousePosition.y > handler[x]->getPosY() + handler[x]->getRadius() && mousePosition.y < handler[x]->getPosY() - handler[x]->getRadius())
+        {
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            {
+                if(handler[x]->type != Handler::PLANET && handler[x]->type != Handler::SUN)
+                {
+                    asteroid_animations.addAnimHere({handler[x]->getPosX() - handler[x]->getRadius(), 
+                                                handler[x]->getPosY() - handler[x]->getRadius()});
+                    handler.erase(handler.begin() + x);   
+                }
+            }
         }
     }
 
