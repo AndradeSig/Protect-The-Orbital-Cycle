@@ -9,7 +9,7 @@ O jogo está em fase de Desenvolvimento, e está sendo produzido por : Andrade e
 Plataformas......: Linux (em breve Windows)
 Compilador.......: GCC
 Linguagens.......: C++
-API..............: SFML
+API's............: SFML, RANDOM(https://github.com/effolkronium/random)
 Editor de Códigos: Visual Studio Code
 ```
 ####
