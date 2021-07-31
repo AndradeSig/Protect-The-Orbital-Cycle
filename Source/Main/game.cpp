@@ -45,6 +45,9 @@ int main()
     music.setLoop(true);
     music.play();
 
+    asteroidSound.soundbuffer.loadFromFile("Resources/mixkit-sea-mine-explosion-1184.ogg");
+    asteroidSound.setBuffer();
+
     sf::Clock game_clock;
     float delta_time        = 0.0f;
     float last_time         = 0.0f;
@@ -73,6 +76,8 @@ int main()
 
         tick(delta_time, window);
         render(window, delta_time, frames_per_sec);
+
+        asteroidSound.checkPlay();
     }
 
     return 0;

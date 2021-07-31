@@ -78,6 +78,37 @@ public:
 
 };
 
+class AsteroidSound{
+    bool _shouldPlay;
+public:
+    sf::SoundBuffer soundbuffer;
+    sf::Sound       sound;
+
+    void setBuffer(){
+        sound.setBuffer(soundbuffer);
+    }
+
+    bool getShouldPlay(){
+        if ( _shouldPlay){
+            _shouldPlay = false;
+            return true;    
+        }
+        if (!_shouldPlay){
+            return false;
+        }
+    };
+
+    void setShouldPlay(bool value){
+        _shouldPlay = value;
+    }
+
+    void checkPlay(){
+        if (getShouldPlay())
+            sound.play();
+    }
+};
+
+AsteroidSound asteroidSound;
 Animator asteroid_animations;
 
 void whenStart(sf::RenderWindow &window)
@@ -117,6 +148,7 @@ void whenStart(sf::RenderWindow &window)
 float distance;
 float ang_orbita;
 
+
 void whenUpdate(float delta_time, sf::RenderWindow &window)
 {
     sun->mass = 10.0f;
@@ -147,6 +179,7 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
         {
             asteroid_animations.addAnimHere({handler[x]->getPosX() - handler[x]->getRadius(), 
                                              handler[x]->getPosY() - handler[x]->getRadius()});
+            asteroidSound.setShouldPlay(true);
             handler.erase(handler.begin() + x);   
         }
     }
@@ -166,6 +199,7 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
                 {
                     asteroid_animations.addAnimHere({handler[x]->getPosX() - handler[x]->getRadius(), 
                                                 handler[x]->getPosY() - handler[x]->getRadius()});
+                    asteroidSound.setShouldPlay(true);
                     handler.erase(handler.begin() + x);
                     POINTS++;   /** + points **/   
                 }
