@@ -33,8 +33,8 @@ void Sun::start(sf::RenderWindow &window)
     }
 
     this->radius = 100.0f; 
-    this->posX   = (window.getSize().x/2 - getRadius()) - 64;
-    this->posY   = (window.getSize().y/2 - getRadius()) - 64;
+    this->posX   = window.getSize().x/3;
+    this->posY   = window.getSize().y/3 - 64;
 
     sun_shape.setPosition(sf::Vector2f(this->getPosX(), this->getPosY()));
     sun_shape.setRadius(this->getRadius());
