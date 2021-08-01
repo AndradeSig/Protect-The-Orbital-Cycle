@@ -57,7 +57,7 @@ void SHOW_LIFEBAR(Handler* obj, std::pair<uint, uint> position, sf::RenderWindow
     outline.setPosition(*new sf::Vector2f(position.first, position.second));
     outline.setFillColor(sf::Color::Transparent);
     outline.setOutlineColor(sf::Color::White);
-    outline.setOutlineThickness(5.0f);
+    outline.setOutlineThickness(2.0f);
     window.draw(outline);
     
     if (obj->life <= 0) return;

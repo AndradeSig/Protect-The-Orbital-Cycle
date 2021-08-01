@@ -25,9 +25,23 @@ Sun *sun;
 Planet *planet;
 
 int POINTS  = 0;
+bool wasClicking;
 
 #define PI 3.14159265359f
 #define G 500000.0f
+
+/**     GAME DIFICULTY LEVELS       **/
+enum GAME_DIFICULTY
+{
+    EASY        = 0,
+    NORMAL      = 1, 
+    HARD        = 2,
+    VERY_HARD   = 3,
+    IMPOSSIBLE  = 4
+};
+
+GAME_DIFICULTY  game_dificulty          = EASY;
+double          game_random_dificulty   = 0.01;
 
 SoundEffect asteroidSound;
 Animator asteroid_animations;
@@ -70,6 +84,34 @@ float distance;
 float ang_orbita;
 
 
+void updateDificultyGame(Asteroid *asteroid, float delta_time)
+{
+    switch(game_dificulty)
+    {
+        case EASY:
+            asteroid->velocity      = 180.0f;
+            game_random_dificulty   = 0.01;
+            break;
+        case NORMAL:
+            asteroid->velocity      = 220.0f;
+            game_random_dificulty   = 0.1;
+            break;
+        case HARD:
+            asteroid->velocity      = 290.0f;
+            game_random_dificulty   = 1;
+            break;
+        case VERY_HARD:
+            asteroid->velocity      = 320.0f;
+            game_random_dificulty   = 2;
+            break;
+        case IMPOSSIBLE:
+            asteroid->velocity      = 420.0f;
+            game_random_dificulty   = 3;
+            break;
+    }
+}
+
+
 void whenUpdate(float delta_time, sf::RenderWindow &window)
 {
     sun->mass = 10.0f;
@@ -85,13 +127,30 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
     // 30° por segundo
     ang_orbita += 30 * delta_time;
 
+
+    if(POINTS <= 20)
+        game_dificulty  = EASY;
+    if(POINTS > 20)
+        game_dificulty  = NORMAL;
+    if(POINTS >= 40)
+        game_dificulty  = HARD;
+    if(POINTS >= 60)
+        game_dificulty  = VERY_HARD;
+    if(POINTS >= 80)
+        game_dificulty  = IMPOSSIBLE;
+
+
     /** SPAWN ASTEROIDS **/
     double random_number = Random::get(0, 100); /** Get random numbers between 0 and 100 **/
-    if (random_number < 0.01)
+    if (random_number < game_random_dificulty)
     {
         Asteroid *asteroid = new Asteroid();
+        updateDificultyGame(asteroid, delta_time);
         handler.push_back(asteroid);
     }
+
+    system("clear");
+    std::cout << game_dificulty << "\n";
 
     /** COLLISION BETWEEN ASTEROIDS, PLANET AND SUN **/
     for (uint16_t x = 0; x < handler.size(); x++)
@@ -110,9 +169,6 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
             handler.erase(handler.begin() + x);  
         }
     }
-    system("clear");
-    std::cout << "sun    = " << sun->life << "\n";
-    std::cout << "planet = " << planet->life << "\n";
 
 
     /** DETECT MOUSE COLLISION **/
@@ -123,7 +179,7 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
         if(mousePosition.x > handler[x]->getPosX() - handler[x]->getRadius() && mousePosition.x < handler[x]->getPosX() + handler[x]->getRadius()
         && mousePosition.y < handler[x]->getPosY() + handler[x]->getRadius() && mousePosition.y > handler[x]->getPosY() - handler[x]->getRadius())
         {
-            if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && !wasClicking)
             {
                 if(handler[x]->type != Handler::PLANET && handler[x]->type != Handler::SUN)
                 {
@@ -136,6 +192,8 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
             }
         }
     }
+    wasClicking     = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+
 
     for (Handler *current_handler : handler)
     {

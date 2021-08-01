@@ -48,7 +48,6 @@ Asteroid::Asteroid()
     //std::cout << random_number_to_spawn << "\n";
 
     this->radius    = 22.0f;
-    this->velocity  = 140.0f;
 
     if(!asteroid_texture.loadFromFile("Resources/asteroide.png"))
     {
