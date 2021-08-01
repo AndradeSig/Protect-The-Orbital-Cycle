@@ -11,7 +11,6 @@ class Planet : public Handler
     public:
 
         sf::CircleShape planet_shape;
-        sf::Texture     planet_texture;
 
         float angle;
 
@@ -33,7 +32,7 @@ void Planet::start(sf::RenderWindow &window)
     this->velocity  = 2.0f;
     this->force     = 100.0f;
     
-    if(!planet_texture.loadFromFile("Resources/planet.png"))
+    if(!texture.loadFromFile("Resources/planet.png"))
     {
         system("clear");
         std::cout << "\n\n--> Não foi possível encontrar a Textura <-- " << "\n\n";
@@ -41,7 +40,7 @@ void Planet::start(sf::RenderWindow &window)
 
     planet_shape.setPosition(sf::Vector2f(this->getPosX(), this->getPosY()));
     planet_shape.setRadius(this->getRadius());
-    planet_shape.setTexture(&planet_texture);
+    planet_shape.setTexture(&texture);
 }
 
 void Planet::tick(float delta_time, sf::RenderWindow &window)
