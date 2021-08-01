@@ -16,7 +16,7 @@ enum GAME_STATES
     GAME_OVER   = 2
 };
 
-GAME_STATES game_state = GAMEPLAY;
+GAME_STATES game_state = MAIN_MENU;
 
 sf::RectangleShape      space_background;
 sf::Texture             space_texture;
