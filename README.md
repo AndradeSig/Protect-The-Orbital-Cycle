@@ -1,5 +1,5 @@
 ##
-🪐 Protect The Orbital Cicle 🪐
+🪐 Protect The Orbital Cycle 🪐
 -------
 Este jogo foi feito para a Game Jaaj 6 (Game Jam organizada pelo Amdre Young).
 <br/>
