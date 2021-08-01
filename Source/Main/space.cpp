@@ -96,21 +96,27 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
     /** COLLISION BETWEEN ASTEROIDS, PLANET AND SUN **/
     for (uint16_t x = 0; x < handler.size(); x++)
     {
-        if (handler[x]->isCollidingWith({*sun, *planet}))
+        Handler::Types collision = handler[x]->isCollidingWith({*sun, *planet});
+        if (collision)
         {
+            if (collision == Handler::Types::SUN)
+                sun->life    -= 10;
+            if (collision == Handler::Types::PLANET)
+                planet->life -= 25;
+
             asteroid_animations.addAnimHere({handler[x]->getPosX() - handler[x]->getRadius(), 
                                              handler[x]->getPosY() - handler[x]->getRadius()});
             asteroidSound.setShouldPlay(true);
-            handler.erase(handler.begin() + x);   
+            handler.erase(handler.begin() + x);  
         }
     }
+    system("clear");
+    std::cout << "sun    = " << sun->life << "\n";
+    std::cout << "planet = " << planet->life << "\n";
 
 
     /** DETECT MOUSE COLLISION **/
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-
-    system("clear");
-    std::cout << "" << mousePosition.y << "\n"; 
 
     for(uint16_t x = 0; x < handler.size(); x++)
     {
