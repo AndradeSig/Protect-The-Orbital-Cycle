@@ -11,6 +11,7 @@ class Handler
         enum Types {NONE, HANDLER, SUN, PLANET, ASTEROID};
 
         Handler::Types type = HANDLER;
+        sf::Texture texture;
 
         double posX;
         double posY;
