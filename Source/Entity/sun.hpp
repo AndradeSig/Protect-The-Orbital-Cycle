@@ -10,7 +10,6 @@ class Sun : public Handler
     public:
 
         sf::CircleShape sun_shape;
-        sf::Texture     sun_texture;
 
         Sun();
         void start(sf::RenderWindow &window);
@@ -26,7 +25,7 @@ Sun::Sun()
 
 void Sun::start(sf::RenderWindow &window)
 {
-    if(!sun_texture.loadFromFile("Resources/sol.png"))
+    if(!texture.loadFromFile("Resources/sol.png"))
     {
         system("clear");
         std::cout << "\n\n--> Não foi possível encontrar a Textura <-- " << "\n\n";
@@ -38,7 +37,7 @@ void Sun::start(sf::RenderWindow &window)
 
     sun_shape.setPosition(sf::Vector2f(this->getPosX(), this->getPosY()));
     sun_shape.setRadius(this->getRadius());
-    sun_shape.setTexture(&sun_texture);
+    sun_shape.setTexture(&texture);
 }
 
 void Sun::tick(float delta_time, sf::RenderWindow &window)
