@@ -26,7 +26,7 @@ class Handler
         float velocity;
         float force;
         float mass;
-        float life = 100;
+        float life = 20;
 
         virtual void  start(sf::RenderWindow &window);
         virtual void  tick(float delta_time, sf::RenderWindow &window);

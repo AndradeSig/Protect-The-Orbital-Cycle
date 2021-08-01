@@ -11,14 +11,18 @@
 
 enum GAME_STATES
 {
-    MAIN_MENU = 0,
-    GAMEPLAY = 1
+    MAIN_MENU   = 0,
+    GAMEPLAY    = 1,
+    GAME_OVER   = 2
 };
 
-GAME_STATES game_state = MAIN_MENU;
+GAME_STATES game_state = GAMEPLAY;
 
-sf::RectangleShape     space_background;
-sf::Texture            space_texture;
+sf::RectangleShape      space_background;
+sf::Texture             space_texture;
+
+std::array<sf::Text, 3> game_over_screen_text;
+
 
 void tick(float delta_time, sf::RenderWindow &window)
 {
@@ -44,6 +48,16 @@ void tick(float delta_time, sf::RenderWindow &window)
     if(game_state == GAMEPLAY)
     {
         whenUpdate(delta_time, window);
+        if(gameOver)
+            game_state  = GAME_OVER;
+    }
+
+    if(game_state == GAME_OVER)
+    {
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
+            restartGame(window);
+            game_state  = GAMEPLAY;
+        }
     }
 }
 
@@ -72,6 +86,26 @@ void render(sf::RenderWindow &window, float delta_time, float fps)
         SHOW_GUI_FPS("FPS: " + std::to_string(fps), window);
     }
 
+    if(game_state == GAME_OVER)
+    {
+        window.draw(space_background);
+        game_over_screen_text[0].setPosition(window.getSize().x/3, window.getSize().y/3);
+        game_over_screen_text[0].setCharacterSize(48);
+        game_over_screen_text[0].setString("-- Game Over --");
+        game_over_screen_text[1].setPosition(window.getSize().x/3 + 96, window.getSize().y/3 + 80);
+        game_over_screen_text[1].setCharacterSize(24);
+        game_over_screen_text[1].setString("Total Points: " + std::to_string(POINTS));
+        game_over_screen_text[2].setPosition(window.getSize().x/3 - 32, window.getSize().y/2);
+        game_over_screen_text[2].setCharacterSize(32);
+        game_over_screen_text[2].setString("> Press Enter to Restart <");
+        for(auto text : game_over_screen_text)
+        {
+            text.setFont(default_font);
+            text.setFillColor(sf::Color::White);
+            window.draw(text);
+        }
+    }
+
     window.display();
 }
 
@@ -97,6 +131,7 @@ int main()
     /** WHEN START **/
     whenMainMenuStart(window);
     space_texture.loadFromFile("Resources/space.png");
+    default_font.loadFromFile("Resources/DEFAULT_FONT.ttf");
     whenStart(window);
 
     while(window.isOpen())

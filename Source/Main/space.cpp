@@ -20,6 +20,9 @@ using Random = effolkronium::random_static; /** External API to use Random **/
 
 
 /** VARIABLES || OBJECTS **/
+
+bool gameOver   = false;
+
 std::vector<Handler *> handler;
 Sun *sun;
 Planet *planet;
@@ -83,6 +86,19 @@ void whenStart(sf::RenderWindow &window)
 float distance;
 float ang_orbita;
 
+void GameOver()
+{
+    for(uint16_t x = 0; x < handler.size(); x++)
+    {
+        handler.erase(handler.begin() + x);
+    }
+}
+
+void restartGame(sf::RenderWindow &window)
+{
+    whenStart(window);
+    gameOver    = false;
+}
 
 void updateDificultyGame(Asteroid *asteroid, float delta_time)
 {
@@ -164,7 +180,7 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
                 planet->life -= 25;
 
             asteroid_animations.addAnimHere({handler[x]->getPosX() - handler[x]->getRadius(), 
-                                             handler[x]->getPosY() - handler[x]->getRadius()});
+                                            handler[x]->getPosY() - handler[x]->getRadius()});
             asteroidSound.setShouldPlay(true);
             handler.erase(handler.begin() + x);  
         }
@@ -184,7 +200,7 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
                 if(handler[x]->type != Handler::PLANET && handler[x]->type != Handler::SUN)
                 {
                     asteroid_animations.addAnimHere({handler[x]->getPosX() - handler[x]->getRadius(), 
-                                                     handler[x]->getPosY() - handler[x]->getRadius()});
+                                                    handler[x]->getPosY() - handler[x]->getRadius()});
                     asteroidSound.setShouldPlay(true);
                     handler.erase(handler.begin() + x);
                     POINTS++;   /** + points **/   
@@ -194,6 +210,21 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
     }
     wasClicking     = sf::Mouse::isButtonPressed(sf::Mouse::Left);
 
+    if(planet->life <= 0)
+    {
+        for(auto it = handler.begin(); it != handler.end(); it++)
+        {
+            if(*it == planet){
+                handler.erase(it);
+            }
+        }
+    }
+    
+    if(sun->life <= 0)
+        gameOver    = true;
+
+    if(gameOver)
+        GameOver();
 
     for (Handler *current_handler : handler)
     {
