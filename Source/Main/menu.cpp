@@ -26,7 +26,7 @@ class MainMenu
 
             
             /**     MAIN MENU TITLE     **/
-            main_menu_title_text.setPosition(sf::Vector2f(window.getSize().x/3 - 48, window.getSize().y/6));
+            main_menu_title_text.setPosition(sf::Vector2f(window.getSize().x/6, window.getSize().y/6));
             main_menu_title_text.setFont(main_menu_font);
             main_menu_title_text.setCharacterSize(64);
 

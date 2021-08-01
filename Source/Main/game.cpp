@@ -4,7 +4,7 @@
 #include "space.cpp"
 #include "menu.cpp"
 
-#define GAME_TITLE     "WAVES TO ORBIT"
+#define GAME_TITLE     "PROTECT THE ORBITAL CICLE"
 #define SCREEN_WIDTH   1280
 #define SCREEN_HEIGHT  820
 #define FRAMERATE_GAME 60
@@ -22,6 +22,25 @@ sf::Texture            space_texture;
 
 void tick(float delta_time, sf::RenderWindow &window)
 {
+    if(game_state == MAIN_MENU)
+    {
+        sf::Vector2i localMousePosition = sf::Mouse::getPosition(window);
+        sf::RectangleShape  button01    = main_menu->buttons[0];
+        sf::RectangleShape  button02    = main_menu->buttons[1];
+        if(localMousePosition.x > button01.getPosition().x - button01.getSize().x && localMousePosition.x < button01.getPosition().x + button01.getSize().x
+        && localMousePosition.y < button01.getPosition().y + button01.getSize().y && localMousePosition.y > button01.getPosition().y - button01.getSize().y)
+        {
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                game_state  = GAMEPLAY;
+        }
+        else if(localMousePosition.x > button02.getPosition().x - button02.getSize().x && localMousePosition.x < button02.getPosition().x + button02.getSize().x
+        && localMousePosition.y < button02.getPosition().y + button02.getSize().y && localMousePosition.y > button02.getPosition().y - button02.getSize().y)
+        {
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                window.close();
+        }
+    }
+
     if(game_state == GAMEPLAY)
     {
         whenUpdate(delta_time, window);
