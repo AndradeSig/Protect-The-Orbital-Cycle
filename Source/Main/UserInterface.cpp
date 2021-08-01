@@ -6,9 +6,18 @@ sf::Font    default_font;
 sf::Text    points_text;
 sf::Text    fps_text;
 
+struct LifeIcon{
+    sf::Sprite  sprite;
+    sf::Texture texture;
+};
+LifeIcon life_icon;
+
 void LOAD_GUI()
 {
     default_font.loadFromFile("Resources/DEFAULT_FONT.ttf");
+    
+    life_icon.texture.loadFromFile("Resources/life.png");
+    life_icon.sprite.setTexture(life_icon.texture);
 }
 
 void SHOW_GUI_POINTS(std::string str_points ,sf::RenderWindow &window)
@@ -35,9 +44,13 @@ struct vec2i { int x, y; };
 vec2i lifebar_size = { 200, 20 };
 void SHOW_LIFEBAR(Handler* obj, std::pair<uint, uint> position, sf::RenderWindow &window){
 
+    life_icon.sprite.setPosition(position.first - 40, position.second - 5);
+    life_icon.sprite.setScale(1.8f, 1.8f);
+    window.draw(life_icon.sprite);
+
     sf::CircleShape icon(15.0f);
     icon.setTexture(&obj->texture);
-    icon.setPosition(sf::Vector2f(position.first - 40, position.second - 5));
+    icon.setPosition(sf::Vector2f(position.first - 80, position.second - 5));
     window.draw(icon);
 
     sf::RectangleShape outline(sf::Vector2f(lifebar_size.x, lifebar_size.y));
@@ -47,7 +60,6 @@ void SHOW_LIFEBAR(Handler* obj, std::pair<uint, uint> position, sf::RenderWindow
     outline.setOutlineThickness(5.0f);
     window.draw(outline);
     
-
     if (obj->life <= 0) return;
     sf::RectangleShape lifebar(sf::Vector2f(lifebar_size.x * (obj->life / 100), lifebar_size.y));
     lifebar.setPosition(*new sf::Vector2f(position.first, position.second));
