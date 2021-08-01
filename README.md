@@ -1,5 +1,5 @@
 ##
-🪐 Game Jaaj 6 - Orbit Game Cicle 🪐
+🪐 Protect The Orbital Cicle 🪐
 -------
 Este jogo foi feito para a Game Jaaj 6 (Game Jam organizada pelo Amdre Young).
 <br/>
