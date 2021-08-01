@@ -2,18 +2,30 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "space.cpp"
+#include "menu.cpp"
 
-#define GAME_TITLE     "Unknow Game Name"
+#define GAME_TITLE     "WAVES TO ORBIT"
 #define SCREEN_WIDTH   1280
 #define SCREEN_HEIGHT  820
 #define FRAMERATE_GAME 60
+
+enum GAME_STATES
+{
+    MAIN_MENU = 0,
+    GAMEPLAY = 1
+};
+
+GAME_STATES game_state = MAIN_MENU;
 
 sf::RectangleShape     space_background;
 sf::Texture            space_texture;
 
 void tick(float delta_time, sf::RenderWindow &window)
 {
-    whenUpdate(delta_time, window);
+    if(game_state == GAMEPLAY)
+    {
+        whenUpdate(delta_time, window);
+    }
 }
 
 void render(sf::RenderWindow &window, float delta_time, float fps)
@@ -24,11 +36,22 @@ void render(sf::RenderWindow &window, float delta_time, float fps)
     space_background.setPosition(sf::Vector2f(0,0));
     space_background.setTexture(&space_texture);
 
-    window.draw(space_background);
-    whenRender(window, delta_time);
+    /**     RENDER MAIN MENU    **/
+    if(game_state == MAIN_MENU)
+    {
+        main_menu->main_menu_title_text.setString(GAME_TITLE);
+        whenMainMenuRender(window);
+    }
 
-    /** SHOW FPS **/
-    SHOW_GUI_FPS("FPS: " + std::to_string(fps), window);
+    /**     RENDER GAMEPLAY     **/
+    if(game_state == GAMEPLAY)
+    {
+        window.draw(space_background);
+        whenRender(window, delta_time);
+
+        /** SHOW FPS **/
+        SHOW_GUI_FPS("FPS: " + std::to_string(fps), window);
+    }
 
     window.display();
 }
@@ -53,6 +76,7 @@ int main()
     float last_time         = 0.0f;
 
     /** WHEN START **/
+    whenMainMenuStart(window);
     space_texture.loadFromFile("Resources/space.png");
     whenStart(window);
 
