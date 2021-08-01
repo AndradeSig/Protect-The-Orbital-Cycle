@@ -152,4 +152,7 @@ void whenRender(sf::RenderWindow &window, float delta_time)
     asteroid_animations.renderAnims(&window, delta_time);
 
     SHOW_GUI_POINTS("POINTS:" + std::to_string(POINTS), window);
+    
+    SHOW_LIFEBAR(sun,    {1050, 50 }, window);
+    SHOW_LIFEBAR(planet, {1050, 100}, window);
 }
