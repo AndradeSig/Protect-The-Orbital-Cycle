@@ -1,5 +1,6 @@
-#include <iostream>
+#include <bits/stdc++.h>
 #include <SFML/Graphics.hpp>
+#include "../Entity/handler.hpp"
 
 sf::Font    default_font;
 sf::Text    points_text;
@@ -34,10 +35,15 @@ struct vec2i { int x, y; };
 vec2i lifebar_size = { 200, 20 };
 void SHOW_LIFEBAR(Handler* obj, std::pair<uint, uint> position, sf::RenderWindow &window){
 
+    sf::CircleShape icon(15.0f);
+    icon.setTexture(&obj->texture);
+    icon.setPosition(sf::Vector2f(position.first - 40, position.second - 5));
+    window.draw(icon);
+
     sf::RectangleShape outline(sf::Vector2f(lifebar_size.x, lifebar_size.y));
     outline.setPosition(*new sf::Vector2f(position.first, position.second));
     outline.setFillColor(sf::Color::Transparent);
-    outline.setOutlineColor(sf::Color::Cyan);
+    outline.setOutlineColor(sf::Color::White);
     outline.setOutlineThickness(5.0f);
     window.draw(outline);
     
