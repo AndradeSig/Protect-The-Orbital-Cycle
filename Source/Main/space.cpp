@@ -3,10 +3,13 @@
 #include <vector>
 #include <cmath>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "../Entity/handler.hpp"
 #include "../Entity/sun.hpp"
 #include "../Entity/planet.hpp"
 #include "../Entity/asteroid.hpp"
+#include "Animator.hpp"
+#include "SoundEffect.hpp"
 
 /** GUI **/
 #include "UserInterface.cpp"
@@ -25,88 +28,6 @@ int POINTS  = 0;
 
 #define PI 3.14159265359f
 #define G 500000.0f
-
-class Animator
-{
-private:
-    struct Animation
-    {
-        float posX;
-        float posY;
-        float creation_time;
-        uint current_frame;
-    };
-
-public:
-
-    std::vector<Animation> animations;
-    std::vector<sf::Texture> frames;
-    float time_interframes = 0.2f;
-    float time;
-
-    void addAnimHere(std::pair<float, float> new_position)
-    {
-        animations.push_back((Animation){new_position.first, new_position.second, time});
-    }
-
-    void changeFrame(float delta_time)
-    {
-        for (int x = 0; x < animations.size(); x++)
-        {
-            if (time - animations[x].creation_time >= time_interframes)
-            {
-                animations[x].current_frame++;
-                if (animations[x].current_frame > frames.size())
-                    animations.erase(animations.begin() + x);
-            }
-        }
-    }
-
-    void renderAnims(sf::RenderWindow *window, float delta_time)
-    {
-        time += delta_time;
-        for (auto anim : animations)
-        {
-            sf::Sprite sprite;
-            sprite.setScale(sf::Vector2f(2.0f, 2.0f));
-            sprite.move(sf::Vector2f(anim.posX, anim.posY));
-            sprite.setTexture(frames[anim.current_frame]);
-            window->draw(sprite);
-        }
-        changeFrame(delta_time);
-    }
-
-};
-
-class SoundEffect{
-    bool _shouldPlay;
-public:
-    sf::SoundBuffer soundbuffer;
-    sf::Sound       sound;
-
-    void setBuffer(){
-        sound.setBuffer(soundbuffer);
-    }
-
-    bool getShouldPlay(){
-        if ( _shouldPlay){
-            _shouldPlay = false;
-            return true;    
-        }
-        if (!_shouldPlay){
-            return false;
-        }
-    };
-
-    void setShouldPlay(bool value){
-        _shouldPlay = value;
-    }
-
-    void checkPlay(){
-        if (getShouldPlay())
-            sound.play();
-    }
-};
 
 SoundEffect asteroidSound;
 Animator asteroid_animations;
