@@ -6,7 +6,7 @@ Este jogo foi feito para a Game Jaaj 6 (Game Jam organizada pelo Amdre Young).
 O jogo está em fase de Desenvolvimento, e está sendo produzido por : Andrade e Gustavo
 <br/>
 ```
-Plataformas......: Linux (em breve Windows)
+Plataformas......: Linux e Windows
 Compilador.......: GCC
 Linguagens.......: C++
 API's............: SFML, RANDOM(https://github.com/effolkronium/random)
