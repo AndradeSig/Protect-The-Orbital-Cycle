@@ -9,7 +9,7 @@ private:
         float posX;
         float posY;
         float creation_time;
-        uint current_frame;
+        int current_frame;
     };
 
 public:

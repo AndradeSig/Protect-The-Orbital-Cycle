@@ -62,10 +62,6 @@ void tick(float delta_time, sf::RenderWindow &window)
             #ifdef __FreeBSD__
 				system("./orbitalcycle_linux &");
 			#endif
-
-            #ifdef _WIN32
-                system("START /B orbitalcycle_win.exe");
-            #endif
             
             #ifdef _WIN64
 				system("START /B orbitalcycle_win.exe");

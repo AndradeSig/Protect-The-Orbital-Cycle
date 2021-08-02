@@ -42,7 +42,7 @@ void SHOW_GUI_FPS(std::string str_fps ,sf::RenderWindow &window)
 
 struct vec2i { int x, y; };
 vec2i lifebar_size = { 200, 20 };
-void SHOW_LIFEBAR(Handler* obj, std::pair<uint, uint> position, sf::RenderWindow &window){
+void SHOW_LIFEBAR(Handler* obj, std::pair<int, int> position, sf::RenderWindow &window){
 
     life_icon.sprite.setPosition(position.first - 40, position.second - 5);
     life_icon.sprite.setScale(1.8f, 1.8f);

@@ -165,9 +165,6 @@ void whenUpdate(float delta_time, sf::RenderWindow &window)
         handler.push_back(asteroid);
     }
 
-    system("clear");
-    std::cout << game_dificulty << "\n";
-
     /** COLLISION BETWEEN ASTEROIDS, PLANET AND SUN **/
     for (uint16_t x = 0; x < handler.size(); x++)
     {
