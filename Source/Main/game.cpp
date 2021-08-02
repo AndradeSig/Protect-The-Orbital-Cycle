@@ -55,7 +55,23 @@ void tick(float delta_time, sf::RenderWindow &window)
     if(game_state == GAME_OVER)
     {
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)){
-            restartGame(window);
+            #ifdef __linux__
+                system("./orbitalcycle_linux &");
+            #endif
+            
+            #ifdef __FreeBSD__
+				system("./orbitalcycle_linux &");
+			#endif
+
+            #ifdef _WIN32
+                system("START /B orbitalcycle_win.exe");
+            #endif
+            
+            #ifdef _WIN64
+				system("START /B orbitalcycle_win.exe");
+			#endif
+
+            exit(0);
             game_state  = GAMEPLAY;
         }
     }
