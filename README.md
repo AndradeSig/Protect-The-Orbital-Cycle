@@ -27,13 +27,13 @@ O executável `JaajGame` está na pasta principal do Projeto. Para abrir, basta 
 ```shell
 #debian-based
 sudo apt install build-essential
-sudo apt-get install libsfml-dev
+sudo apt-get install libsfml-dev  #Instalar SFML
 make
 
 
 #arch-based
 sudo pacman -S gcc g++
-yay -S sfml
+yay -S sfml #Instalar SFML
 make
 
 ```
